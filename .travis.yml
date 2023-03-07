@@ -3,6 +3,9 @@ jdk:
   - openjdk8
 os: linux
 
+vm:
+  size: large
+
 before_install:
   - sudo apt update
   - sudo apt install openjfx
