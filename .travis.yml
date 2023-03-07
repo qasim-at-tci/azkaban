@@ -2,13 +2,14 @@ language: java
 jdk:
   - openjdk8
 os: linux
-dist: xenial
 
 before_install:
   - sudo apt update
   - sudo apt install openjfx
 
-script: ./gradlew clean build --scan --no-daemon --info
+script:
+  - ./gradlew clean build --scan --no-daemon --info
+  - sleep 5
 
 # see https://docs.travis-ci.com/user/languages/java/#Projects-Using-Gradle
 before_cache:
@@ -34,3 +35,8 @@ after_success:
   # avoid to double trigger test and increase build time
   - travis_wait 30 ./gradlew coveralls -x test --no-daemon
   - bash <(curl -s https://codecov.io/bash)
+jobs:
+  include:
+    - dist: xenial
+    - dist: bionic
+    - dist: focal
